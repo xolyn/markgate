@@ -109,7 +109,7 @@ GET https://your-markgate-worker.example.com/?engine=unweb&url=https://example.c
 
 ```json
 {
-  "engine": "jina",
+  "engine": "unweb",
   "markdown": "# Example Domain\n\nThis domain is for use in illustrative examples..."
 }
 ```
@@ -131,11 +131,7 @@ GET https://your-markgate-worker.example.com/?engine=unweb&url=https://example.c
 
 ## MCP
 
-MCP endpoint：
-
-```bash
-POST https://your-markgate-worker.example.com/mcp
-```
+MCP endpoint： `/mcp`
 
 暴露一个工具：
 
