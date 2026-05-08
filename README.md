@@ -1,6 +1,6 @@
 # MarkGate
 
-MarkGate 是一个小型 Cloudflare Worker 网关，可将网页转换为 Markdown。
+MarkGate 是一个小型 Cloudflare Worker 网关，可将网页转换为 Markdown，降低captcha的干扰。
 
 它的目标很简单：把多个 URL-to-Markdown 云服务接在一个统一入口后面，按优先级自动 fallback。某个服务失败、限流、没额度时，请求会继续尝试下一个引擎，最终始终以统一 JSON 结构返回。
 
@@ -50,13 +50,13 @@ const ENGINE_PRIORITY = {
 示例 secrets：
 
 ```bash
-wrangler secret put JINA_API_KEY
-wrangler secret put NEOREADER_API_KEY
-wrangler secret put UNWEB_API_KEY
-wrangler secret put FIRECRAWL_API_KEY
-wrangler secret put SERPLY_API_KEY
-wrangler secret put CLOUDFLARE_ACCOUNT_ID
-wrangler secret put CLOUDFLARE_API_TOKEN
+JINA_API_KEY
+NEOREADER_API_KEY
+UNWEB_API_KEY
+FIRECRAWL_API_KEY
+SERPLY_API_KEY
+CLOUDFLARE_ACCOUNT_ID
+CLOUDFLARE_API_TOKEN
 ```
 
 可选 endpoint 覆盖：
@@ -86,27 +86,24 @@ CLOUDFLARE_TIMEOUT_MS=30000
 
 ### Path 形式
 
-```txt
+```bash
 GET https://your-markgate-worker.example.com/https://example.com
 ```
 
 ### Query 形式
 
-```txt
-GET https://your-markgate-worker.example.com/?url=https://example.com
+```bash
+GET https://your-markgate-worker.example.com?engine={engine}&url={url}
 ```
+
+> 建议将 `engine` 参数写在前面来避免url中的ampersand造成混淆
 
 ### 指定引擎
 
 普通 HTTP API 支持指定 engine。指定后不会走 fallback。
 
-```txt
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=jina
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=neoreader
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=unweb
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=firecrawl
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=serply
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=cloudflare
+```bash
+GET https://your-markgate-worker.example.com/?url=https://example.com&engine=jina/neoreader/unweb/firecrawl/serply/cloudflare
 ```
 
 ### 成功响应
@@ -133,11 +130,11 @@ GET https://your-markgate-worker.example.com/?url=https://example.com&engine=clo
 }
 ```
 
-## MCP API
+## MCP
 
 MCP endpoint：
 
-```txt
+```bash
 POST https://your-markgate-worker.example.com/mcp
 ```
 
