@@ -131,7 +131,8 @@ GET https://your-markgate-worker.example.com/?engine=unweb&url=https://example.c
 
 ## MCP
 
-MCP endpoint： `/mcp`
+- MCP endpoint： `/mcp`
+- MCP类型： Streamable HTTP
 
 暴露一个工具：
 
