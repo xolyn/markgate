@@ -93,18 +93,17 @@ GET https://your-markgate-worker.example.com/https://example.com
 ### Query 形式
 
 ```bash
-GET https://your-markgate-worker.example.com?engine={engine}&url={url}
+GET https://your-markgate-worker.example.com?url={url}
 ```
-
-> 建议将 `engine` 参数写在前面来避免url中的ampersand造成混淆
 
 ### 指定引擎
 
-普通 HTTP API 支持指定 engine。指定后不会走 fallback。
+普通 HTTP API 支持指定 engine。指定后不会走 fallback；例：
 
 ```bash
-GET https://your-markgate-worker.example.com/?url=https://example.com&engine=jina/neoreader/unweb/firecrawl/serply/cloudflare
+GET https://your-markgate-worker.example.com/?engine=unweb&url=https://example.com
 ```
+> 建议将 `engine` 参数写在前面来避免url中的ampersand造成混淆
 
 ### 成功响应
 
